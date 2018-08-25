@@ -111,6 +111,31 @@ Promise.prototype.then = function (onfulfilled, onrejected) {
   })
   return promise2;
 }
+Promise.all = function (promises) {
+  return new Promise((resolve, reject) => {
+    let results = []; let i = 0;
+    function processData(index, data) {
+      results[index] = data; // let arr = []  arr[2] = 100
+      if (++i === promises.length) {
+        resolve(results);
+      }
+    }
+    for (let i = 0; i < promises.length; i++) {
+      let p = promises[i];
+      p.then((data) => { // 成功后把结果和当前索引 关联起来
+        processData(i, data);
+      }, reject);
+    }
+  })
+}
+Promise.race = function (promises) {
+  return new Promise((resolve, reject) => {
+    for (let i = 0; i < promises.length; i++) {
+      let p = promises[i];
+      p.then(resolve, reject);
+    }
+  })
+}
 Promise.prototype.catch = function (onrejected) {
   return this.then(null, onrejected)
 }

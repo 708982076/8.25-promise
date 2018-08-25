@@ -2,6 +2,8 @@ let Promise = require('./promise');
 let bluebird = require('bluebird');
 // bluebird
 let fs = require('fs');
+
+// js bind
 function promisify(fn) {
   return function (...args) {// args =['./age.txt1','utf8']
     return new Promise((resolve,reject)=>{
@@ -9,7 +11,7 @@ function promisify(fn) {
         if(err)reject(err);
         resolve(data);
       });
-    })
+    });
   }
 }
 function promisifyAll(obj) {
