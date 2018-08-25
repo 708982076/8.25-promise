@@ -14,4 +14,4 @@ promise.then(function () {
     })
 }).then(data=>{
   console.log(data);
-})
+});
