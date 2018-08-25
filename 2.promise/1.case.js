@@ -8,7 +8,7 @@
 let Promise = require('./promise');
 
 let p = new Promise((resolve,reject)=>{
-  throw new Error('错了');
+  resolve();
 })
 p.then((value) => {
   console.log(value)

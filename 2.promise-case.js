@@ -4,7 +4,7 @@ let fs = require('fs');
 function read(url) {
   return new Promise((resolve, reject) => {
     fs.readFile(url, 'utf8', (err, data) => {
-      if(err) reject(err);
+      if (err) reject(err);
       resolve(data);
     })
   });
@@ -16,9 +16,9 @@ function read(url) {
 // 5.catch 会捕获到没有捕获的异常
 // 6.成功或者失败是一个可选参数
 // 7. 如果then方法返回的是一个promise 那么会等待这个promise执行完决定返回的那个promise是成功还是失败
+// 8.为什么要返回一个新的promise而不是this promise状态确定后 就是不能更改。
 // 1.流程管理 (1.去掉data中.txt后缀 2.加一个jpg)
 
-// 8.为什么要返回一个新的promise而不是this promise状态确定后 就是不能更改。
 // let p = new Promise((resolve,reject)=>{
 //   resolve();
 // })
@@ -27,7 +27,11 @@ function read(url) {
 // }).then(null,(err)=>{
 //   console.log(err);
 // })
+read(data).then(data=>{
 
+},err=>{
+  
+})
 // read('./name.txt').then(data=>{
 //   return read(data);// 返回的如果是一个promise的话会等待这个promise执行完 promise 如果成功就走下一个then的成功，如果失败 就走下一个的失败
 // }).then(data=>{
@@ -39,18 +43,20 @@ function read(url) {
 // })
 
 
-// read('./name.txt').then(data=>{
+// read('./name.txt').then(data => {
 //   return data.split('.')[0];
-// }).then(data=>{
+// }).then(data => {
 //   return data + '.jpg';
-// }).then(data=>{
+// }).then(data => {
 //   throw new Error();
-// }).then(null,(err)=>{
-//   console.log('err',err)
-// }).then(data=>{
+// }).then(data => {
+//   throw new Error();
+// }).then(null, (err) => {
+//   console.log('err', err)
+// }).then(data => {
 //   console.log(data);
-// }).catch(err=>{
-//   console.log('catch',err);
-// }).then(data=>{
+// }).catch(err => {
+//   console.log('catch', err);
+// }).then(data => {
 //   console.log(data);
 // })
