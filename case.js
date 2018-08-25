@@ -7,7 +7,7 @@
 // 7. 如果then方法返回的是一个promise 那么会等待这个promise执行完决定返回的那个promise是成功还是失败
 // 8.为什么要返回一个新的promise而不是this promise状态确定后 就是不能更改。
 
-let promise = require('./promise');
+let Promise = require('./promise');
 
 let p = new Promise((resolve,reject)=>{
   resolve();
@@ -15,12 +15,22 @@ let p = new Promise((resolve,reject)=>{
 
 p.then(data=>{
   return new Promise((resolve,reject)=>{
-    setTimeout(() => {
-      reject(1000)
-    }, 1000);
+    resolve(1000);
   })
 }).then(data=>{
   console.log(data);
 },(err)=>{
   console.log('err',err);
+})
+
+
+let p = new Promise((resolve,reject)=>{
+  reject(1);
+})
+p.then(null, (err)=> {
+  throw err;
+}).then((val)=>{ //  then是异步的 (微任务)
+  console.log(val);
+},(err)=>{
+  console.log('----',err);
 })

@@ -28,9 +28,9 @@ function read(url) {
 //   console.log(err);
 // })
 read(data).then(data=>{
-
-},err=>{
   
+},err=>{
+
 })
 // read('./name.txt').then(data=>{
 //   return read(data);// 返回的如果是一个promise的话会等待这个promise执行完 promise 如果成功就走下一个then的成功，如果失败 就走下一个的失败
