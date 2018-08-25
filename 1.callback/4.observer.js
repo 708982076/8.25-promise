@@ -4,9 +4,12 @@ class Observer{
     this.arr = [];
     this.val = 1; // 等待这个值更新时 触发被观察者的更新方法
   }
-  updateVal(){
-    this.val = 100;
-    this.arr.forEach(s=>s.update());
+  updateVal(val){
+    this.val = val;
+    this.notify();
+  }
+  notify(){
+    this.arr.forEach(s => s.update());
   }
   save(s){
     this.arr.push(s);
@@ -22,4 +25,4 @@ let s = new Subject(); // 一个个小的被观察者
 let observe = new Observer();
 observe.save(s);
 observe.save(s);
-observe.updateVal(); // 当值发生变化后 会自动触发
+observe.updateVal(100); // 当值发生变化后 会自动触发
